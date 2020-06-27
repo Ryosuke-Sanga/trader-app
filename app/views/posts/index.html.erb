@@ -1,0 +1,42 @@
+<h1>ユーザーリストと履歴一覧</h1>
+<%= link_to "新規登録画面へ", new_post_path %>
+
+<div class="posts-container">
+    <div class="post">
+   
+    <p class="need">必要なテキスト</p>
+      <% @users.each do |u|%>
+        <p>-------------------</p>
+        <p><%= u.name %></p>
+        <% @posts=u.posts %>
+        <% @userposts=Post.find(@posts.ids) %>
+          <% @userposts.each do |p|%>
+            <p><%= p.need %></p>
+            <p><%= p.created_at %></p>
+            <%= link_to "詳細", post_path(p.id)%>
+            <% if p.user_id == current_user.id %>
+              <%= button_to "削除する", post_path(p.id), method: :delete %> 
+              <%= link_to "編集", edit_post_path(p.id) %><br>
+            <% end %> 
+          <% end %>
+      <% end %>
+
+      <p class="notneed">不要なテキスト</p>
+      <% @users.each do |u|%>
+        <p>-------------------</p>
+        <p><%= u.name %></p>
+        <% @posts=u.posts %>
+        <% @userposts=Post.find(@posts.ids) %>
+        <% @userposts.each do |p|%>
+            <p><%= p.notneed %></p>
+            <p><%= p.created_at %></p>
+            <%= link_to "詳細", post_path(p.id)%>
+          <% if p.user_id == current_user.id %>
+            <%= button_to "削除する", post_path(p.id), method: :delete %>
+            <%= link_to "編集", edit_post_path(p.id) %><br>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    
+</div>

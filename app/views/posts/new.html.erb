@@ -1,0 +1,24 @@
+<h1>TEXT TRADER</h1>
+<%# link_to "マイホームへ", post_path() %>
+<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <li>必要なテキスト</li>
+<%= form_for(@post, :url => { container:'posts',action:'create'})do |f| %>
+  <% @post.errors.full_messages.each do |message| %>            
+  <div class="form-error">            
+    <%= message %>            
+  </div>            
+  <% end %>
+  <div class="field">
+    <%= f.text_field :need, :size => 140 %>
+  </div>
+  <li>不要なテキスト</li>
+  <% @post.errors.full_messages.each do |message| %>            
+  <div class="form-error">            
+    <%= message %>            
+  </div>            
+  <% end %>
+  <div class="field">
+    <%= f.text_field :notneed, :size => 140 %>
+  </div>
+  <%= f.submit "投稿する"%>
+<% end %>
